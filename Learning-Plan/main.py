@@ -1,17 +1,11 @@
-import random
-random_word_list = \
-['hiroshima ', 'me ', 'you ', 'my-ex ', 'dog-fight ', 'charley ', 'abortion ', 'aid ', 'center ', 'claim ', 'common ', 'crime ', 'divorce ', 'essential ', 'fear ', 'height ', 'helpful ', 'insight ', 'label ']
-
 i = 0
 random_wordr = []
-while i <= 10:
-    random_words = random_word_list[random.randint(0, 20)]
+while i <= 9:
+    random_words = input("Input the words: ")
     random_wordr.append(random_words)
     i = i + 1
 
 print(random_wordr)
-
-
 
 def listToString(s):
 
