@@ -1,11 +1,9 @@
 i = 0
-random_wordr = []
+words = []
 while i <= 9:
-    random_words = input("Input the words: ")
-    random_wordr.append(random_words)
+    word = input("Input the words: ")
+    words.append(word)
     i = i + 1
-
-print(random_wordr)
 
 def listToString(s):
 
@@ -14,7 +12,7 @@ def listToString(s):
     for ele in s:
         str1 += ele
     return str1
-b =(listToString(random_wordr))
+b =(listToString(words))
 
-reversed = ''.join(reversed(b))
+reversed = ' '.join(reversed(b))
 print(reversed)
