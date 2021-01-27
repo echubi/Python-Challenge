@@ -1,6 +1,6 @@
 import random
 
-words = ["fish", "chicken", "egg", "turkey", "meat"]
+words = ["fish", "pork", "lamb", "turkey", "goat"]
 
 
 def target_word():
@@ -17,6 +17,7 @@ def dictionary():
     return dic
 
 
+"""
 word = input("Input a letter(To end, enter '!'):").upper()
 
 
@@ -25,7 +26,7 @@ def logic(let):
 
     guess = 0
     diction = dictionary()
-    failed = len(diction) + 5
+    failed = len(diction) + 3
 
     print(diction)
     while len(let) > 1:
@@ -43,6 +44,7 @@ def logic(let):
         print("NO")
         guess = guess + 1
         failed = failed - 1
+        print("You have", failed, "attempts left")
 
     while let not in diction:
 
@@ -59,7 +61,16 @@ def logic(let):
             print("NO")
         guess = guess + 1
         failed = failed - 1
+        print("You have", failed, "attempts left")
+"""
 
 
+def display_current_guess():
 
-logic(word)
+    dic = dictionary()
+    print(dic)
+    word_completion = "_" * len(dic)
+    print(word_completion)
+
+
+display_current_guess()
