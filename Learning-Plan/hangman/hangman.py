@@ -25,29 +25,41 @@ def logic(let):
 
     guess = 0
     diction = dictionary()
+    failed = len(diction) + 5
 
     print(diction)
     while len(let) > 1:
         let = input("Input a letter only:").upper()
-    if let == '!':
-        print(dictionary())
+    if let == '!' or failed == 0:
+        print(diction)
+        print("You made", guess, "failed attempts")
         exit()
 
     if let in diction:
         k = list(diction).index(let)
         print("YES", +k)
-        dictionary().update({let: "true"})
+        diction.update({let: "True"})
     else:
         print("NO")
+        guess = guess + 1
+        failed = failed - 1
 
     while let not in diction:
 
         let = input("Input a letter:").upper()
-        if let in target_word():
+        if let == '!' or failed == 0:
+            print(diction)
+            print("You made", guess, "failed attempts")
+            exit()
+        if let in diction:
             k = list(diction).index(let)
             print("YES", +k)
+            diction.update({let: "True"})
         else:
             print("NO")
         guess = guess + 1
+        failed = failed - 1
+
+
 
 logic(word)
