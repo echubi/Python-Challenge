@@ -1,10 +1,9 @@
 import random
 import re
 
-# file = "data\\words.txt"
+file = "data\\words.txt"
 
-words = ['chicken']
-# [line.rstrip('\n') for line in open(file)] , 'dog', 'cat', 'mouse', 'frog'
+words = [line.rstrip('\n') for line in open(file)]
 guessed_letters = []
 correct = ''
 guesses = 10
