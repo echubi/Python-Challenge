@@ -1,13 +1,17 @@
-from . utils import *
+from rich.console import Console
+from rich.style import Style
+from .utils import *
 import re
-import string
+from.database import *
 
-
+console = Console(color_system="windows")
 guessed_letters = []
 correct = ''
 guesses = 10
 failed = 0
 guessed = False
+
+create_db()
 
 
 class Hangman:
@@ -23,14 +27,14 @@ class Hangman:
 
     def guess_word(self):
         global word, failed, guesses
-        alphabet_upper = string.ascii_uppercase
-        alphabet_uppers = list(alphabet_upper)
-        if len(word) > 1 or word not in alphabet_uppers:
-            word = input("Your input must be a single character alphabet or '!' to exit: ").upper()
-            self.guess_word()
-        if word == '!' or guesses == 0:
+
+        if len(word) > 1:
+            word = input("Input a letter only:").upper()
+        if word == '!' or guesses == 1:
             print("You made", failed, "failed attempts")
-            print("The correct word is", self.target)
+            console.print("The correct word is", self.target, style="#FFC0CB")
+            c.close()
+            conn.close()
             exit()
 
     def display_current_guess(self):
@@ -44,7 +48,10 @@ class Hangman:
         if "_" not in display:
             guessed = True
         if guessed is True:
-            print("You won. The correct word was", self.target)
+            console.print("You won. The correct word was", self.target, style="blue")
+
+            c.close()
+            conn.close()
             exit()
 
     def run(self):
@@ -54,25 +61,34 @@ class Hangman:
             for i in guessed_letters:
                 for j in self.dictionary():
                     if self.dictionary()[j] == word or i == word:
-                        print("Already guessed that. Try again")
+                        console.print("Already guessed that. Try again", style="#FFA500")
                         word = input("Input another letter: ").upper()
                         self.guess_word()
                         self.run()
             k = [i.start() for i in re.finditer(word, self.target)]
-            print("YES", str(k))
+            console.print("YES", str(k), style="green")
             self.dictionary().update({word: "True"})
             correct = correct + word
             self.display_current_guess()
+            data_entry(word)
             guessed_letters.append(word)
             word = input("Input another letter: ").upper()
             self.guess_word()
             self.run()
 
         while self.target.find(word) == -1:
-            print("NO")
+            for i in guessed_letters:
+                for j in self.dictionary():
+                    if self.dictionary()[j] == word or i == word:
+                        console.print("Already guessed that. Try again", style="#FFA500")
+                        word = input("Input another letter: ").upper()
+                        self.guess_word()
+                        self.run()
+            console.print("NO", style="red")
             self.display_current_guess()
             failed = failed + 1
             guesses = guesses - 1
+            data_entry(word)
             guessed_letters.append(word)
             print(guesses, "more")
             word = input("Input another letter: ").upper()
@@ -80,8 +96,12 @@ class Hangman:
             self.run()
 
 
+style1 = Style(color="blue", bold=True)
+style2 = Style(bold=True, color="magenta")
+console.print("WELCOME TO MY HANGMAN GAME ", style=style1)
+console.print("It's a guessing game. \nYou are to guess a word based on the number of blank spaces ", style=style2)
+print("You have", guesses, "guesses")
 t_word = target_word()
 display = "_" * len(t_word)
-print(display)
-print("You have", guesses, "guesses")
+console.print("The length of the word is", display, style="dim cyan")
 word = input("Input a letter(To end, enter '!'):").upper()
