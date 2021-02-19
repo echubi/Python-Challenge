@@ -1,6 +1,6 @@
 import random
 
-file = "data\\words.txt"
+file = "data/words.txt"
 
 words = [line.rstrip('\n') for line in open(file)]
 
