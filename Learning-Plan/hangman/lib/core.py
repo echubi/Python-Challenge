@@ -5,6 +5,7 @@ import re
 from.database import *
 
 console = Console(color_system="windows")
+
 guessed_letters = []
 correct = ''
 guesses = 10
@@ -62,6 +63,7 @@ class Hangman:
                 for j in self.dictionary():
                     if self.dictionary()[j] == word or i == word:
                         console.print("Already guessed that. Try again", style="#FFA500")
+
                         word = input("Input another letter: ").upper()
                         self.guess_word()
                         self.run()
@@ -71,6 +73,7 @@ class Hangman:
             correct = correct + word
             self.display_current_guess()
             data_entry(word)
+
             guessed_letters.append(word)
             word = input("Input another letter: ").upper()
             self.guess_word()
@@ -89,6 +92,7 @@ class Hangman:
             failed = failed + 1
             guesses = guesses - 1
             data_entry(word)
+
             guessed_letters.append(word)
             print(guesses, "more")
             word = input("Input another letter: ").upper()
@@ -104,4 +108,5 @@ print("You have", guesses, "guesses")
 t_word = target_word()
 display = "_" * len(t_word)
 console.print("The length of the word is", display, style="dim cyan")
+
 word = input("Input a letter(To end, enter '!'):").upper()
